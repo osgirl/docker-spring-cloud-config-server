@@ -3,7 +3,7 @@ services:
   - docker
 language: java
 jdk: oraclejdk8
-script: mvn clean verify
+script: mvn clean install
 env:
   global:
     - secure: "bZ/fi7j55TEzZcyoCdZ0TM3WUTMCToyNP1c+A25a5rRprJtqdNjUJYBOixwGUZVYZUfFbUAThvptIRExK9+3ucFIbVVksEvk6z4VpFGFbetKXO46+7+f5uyTBRNsB5Wf0O1sltvq+QSN4tH5XfBFWY/FGZ851LryiYy/8xYtGsRJiRSTuhdmeHJOLZZH53tcOjqNwSQRUetMbsxVagWs9jDa0BXToU1BnZNfyjqewAVbRhQFoVngCpTjhTHMJWbpUx9hg6AppGD/uSYzp9PdnLB7+1QWjBSE4E4vmJdCtU9GasIqh1Vc9Q1NSONGEmeDHIwW34zibN+jVsLRL3obcmzXOsf6qmFbtptf80WF4FhdL4gzo4JiFs2NULjbufbq6rcKROKZM/5pW6ikvWmT1b8Q6pmUBbjy4xcPB1zvPVcTRKTpXnMCAU33oPEWB4z3TTMStBTMKjVKWh+OR4t7a+UVnHm90ZqEoYuej/cHqHzeoK49fKY/XrUGEba5N3Egu0VISc4uBtnZn59SyxXm/jIzVQojMt+x2FS/bv3K5UKTOHXBfXKVXxjxzQeBw7YJNuvTo6uc2pStlNHo9MJ/+qQycmv4aK7SX243Ib9O7JSeymVPEdGeOeU6VJuVK7x2Lgr1/m618jsx7UljxkKDWiwwAS4zww2M+xT9Pz5ZmHI=" # DOCKER_EMAIL
