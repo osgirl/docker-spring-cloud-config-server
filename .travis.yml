@@ -1,3 +1,28 @@
 language: java
 jdk: oraclejdk8
 script: mvn clean verify
+env:
+  global:
+    - secure: "bZ/fi7j55TEzZcyoCdZ0TM3WUTMCToyNP1c+A25a5rRprJtqdNjUJYBOixwGUZVYZUfFbUAThvptIRExK9+3ucFIbVVksEvk6z4VpFGFbetKXO46+7+f5uyTBRNsB5Wf0O1sltvq+QSN4tH5XfBFW
+                  Y/FGZ851LryiYy/8xYtGsRJiRSTuhdmeHJOLZZH53tcOjqNwSQRUetMbsxVagWs9jDa0BXToU1BnZNfyjqewAVbRhQFoVngCpTjhTHMJWbpUx9hg6AppGD/uSYzp9PdnLB7+1QWjBSE4E4vmJdCtU9GasIqh1Vc9
+                  Q1NSONGEmeDHIwW34zibN+jVsLRL3obcmzXOsf6qmFbtptf80WF4FhdL4gzo4JiFs2NULjbufbq6rcKROKZM/5pW6ikvWmT1b8Q6pmUBbjy4xcPB1zvPVcTRKTpXnMCAU33oPEWB4z3TTMStBTMKjVKWh+OR4t7a
+                  +UVnHm90ZqEoYuej/cHqHzeoK49fKY/XrUGEba5N3Egu0VISc4uBtnZn59SyxXm/jIzVQojMt+x2FS/bv3K5UKTOHXBfXKVXxjxzQeBw7YJNuvTo6uc2pStlNHo9MJ/+qQycmv4aK7SX243Ib9O7JSeymVPEdGeO
+                  eU6VJuVK7x2Lgr1/m618jsx7UljxkKDWiwwAS4zww2M+xT9Pz5ZmHI=" # DOCKER_EMAIL
+    - secure: "oRSOnjU1u7kb1aMybYpEZunbPrB8RUlPow8ktk6cRqWzf+E9Ui09KSzt4icCg1qx3VM4QPqPrBmdD4ra8C6gpMk5OM7AfU5GmE47d0o6pp2BSWUyXblJxUOWiRMswg+cES9hi5IQY+qQFlLdYQCxn
+               4s6B/1Hhj3Dzer6GjkRG3umu+I/Mks0P3XZFf2VUydG6+rnM9NoDg2f575XscT8uHxp+++5MBWis2Bftv3/hclM++litACXrV7Jqq4IYY9FEt+O7MzP/o4hUKMvk4WLEaSdRd2HdAUbUwDOCexDh0rusYZYkoyUV
+               OCiPJDTeuzhbEC5xX9rNVXVlgzsTm8F5ZsklGbWo4kYP46enIqS4IP5X4HGcX492SWEDVcgAUdW35RR/09dnoaUxIohBl98ez/yVQnm4nNmkhRvJVG0lhv4wcEMcJ6SwvHL5QaK7R4Sic28MhWolpgUX/4q02+lu
+               fn7yDFEMvZFANFT66RkfR3b53KExkyEfR/d9NBSjBZumuQlnyJlZFBsRGFT6JKl44dQckUH9KkKpDnmv2X2WeVPtLBa6t9n/JucqfcVG7aL1nH1hW53ql5c15Zkm/+3bw6PbJj5nUJNzH0QFX4MAfxBDNhL6N98Z
+               m9+GR+1MN0LY0GEAgmdqol/r2QkIkdH9hVUzbOsJRi9fxcJx6/PAP0=" # DOCKER_USER
+    - secure: "m/G4urntIwD3cBk+mPFTF2ERJ+/HYTyRyegiBQwbjvWZxTr3bK+Fgt3kretXI0G9R4AHy7oY/sKGwBBy/nakjEsx1J8YEfjqTlb6GeefomwqGGXLf/oEaemEjFeTebBC3jtciGbrhK+zgQXteko2I
+              qQI1RVNMTxlgrioMdngvHPK2d9kVawhmLX8udxaXxZdghAun6ZTBv5ecEiObMY64x2r2NgRu/eFVRw1EJ/9kWbKfRPzV6XAlF6V/POpszq1H3RMlBxoD8paoFlS+zTlNGQZ9FgianGtYDXgEJvK38FPy0oYfHHZS
+              0k4hKAZe6+w7DTdysMNQ+L9sUD5m7mxAw2RZLQi9UDvSoysFFGoWGwznwSD/KSUV05SwWYmd3VJ4gpbDMDCvKCJdGReawKFwIfCGaRfTFxZynTeI2aeii5tDeyO9XnBXEMY3BDn60W4+e4h0ybwJmn9Mtc8Tu8xI
+              BUFz+ihq4g6s3YAMXYqRc8i28sQ0wlPy6tAR7m51QCwcutSUKMebNBmX6QuVYLu8/9ymJv3WKuPxbL6nthnXxXRIX1Y64vl12f7rxCmYr9vRNnQjpaNk5CT1RVWcqgbZ5WLlDKj/K7FQPhdMJpIUq8LQo2BVdtkr
+              ej4U8it016lwTRjrjn90X/OCgDMfru6cWs+6OSeHWbWUUatfQfSIto=" # DOCKER_PASS
+after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=kcomlabs/spring-cloud-config-server
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
