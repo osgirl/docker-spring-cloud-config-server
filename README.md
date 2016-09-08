@@ -10,15 +10,15 @@ This docker image is based on the lightweight Alpine Linux openjdk image `openjd
 
 To run the docker container:
 ```sh
-docker run -p 8888:8080 kcomlabs/docker-spring-cloud-config-server
+docker run -p 8888:8888 kcomlabs/spring-cloud-config-server
 ```
 
 To run the docker container using docker-compose:
 ```sh
 spring-cloud-config-server:
-  image: kcomlabs/docker-spring-cloud-config-server
+  image: kcomlabs/spring-cloud-config-server
   ports:
-    - "8888:8080"
+    - "8888:8888"
 ```
 
 After running this command Spring Cloud Config Server should be listening on port 8888 on your docker host.
