@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(ConfigServerApplication.class)
 @WebIntegrationTest(randomPort = true)
-public class ConfigServerApplicationTest {
+public class SpringCloudConfigServerApplicationTest {
 
     @Value("${local.server.port}")
     private int localServerPort;

@@ -1,8 +1,3 @@
 spring:
   application:
-    name: configserver
-  cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/rpicloud/guide-cloud-config
+    name: config-server
