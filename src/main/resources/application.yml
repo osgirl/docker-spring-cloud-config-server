@@ -7,6 +7,6 @@ spring:
     config:
       server:
         git:
-          uri:
+          uri: https://github.com/davidmulligan/RSP-Portal-Service
 management:
   context_path: /admin
