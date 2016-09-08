@@ -2,10 +2,11 @@ info:
   component: Config Server
 server:
   port: 8888
-cloud:
-  config:
-    server:
-      git:
-        uri: https://github.com/IGNORE
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri:
 management:
   context_path: /admin
