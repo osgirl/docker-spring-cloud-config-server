@@ -3,10 +3,12 @@ info:
 server:
   port: 8888
 spring:
+  application:
+    name: configserver
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/davidmulligan/RSP-Portal-Service
+          uri: https://github.com/myorg/{application}
 management:
   context_path: /admin

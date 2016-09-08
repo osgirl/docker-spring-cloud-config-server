@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(ConfigServerApplication.class)
 @WebIntegrationTest(randomPort = true)
-public class SpringCloudConfigServerApplicationTests {
+public class ConfigServerApplicationTest {
 
     @Value("${local.server.port}")
     private int localServerPort;
@@ -25,7 +25,6 @@ public class SpringCloudConfigServerApplicationTests {
     @Test
     public void loadAProperty() {
         Environment environment = restTemplate.getForObject(String.format("http://localhost:%d/foo/default", localServerPort), Environment.class);
-
         assertEquals("bar-value", environment.getPropertySources().iterator().next().getSource().get("bar"));
     }
 }
