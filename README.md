@@ -13,6 +13,16 @@ To run the docker container:
 docker run -p 8888:8888 kcomlabs/spring-cloud-config-server
 ```
 
+The easiest way to run is to pass the spring cloud configuration as environment variables e.g.
+```sh
+docker run \
+-e SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/spring-cloud-samples/config-repo.git \
+-e ENCRYPT_KEY=S3cR3t \
+-e JAVA_OPTS=-Xmx256m \
+-p 8888:8888 \
+kcomlabs/spring-cloud-config-server
+```
+
 To run the docker container using docker-compose:
 ```sh
 spring-cloud-config-server:
@@ -24,3 +34,5 @@ spring-cloud-config-server:
 After running this command Spring Cloud Config Server should be listening on port 8888 on your docker host.
 
 You can pass options using the JAVA_OPTS environment variable.
+
+To use SSH GIT urls you will need to mount known_hosts config and keys into /root/.ssh/.
