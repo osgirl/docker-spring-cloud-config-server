@@ -4,16 +4,3 @@ server:
   port: 8888
 management:
   context_path: /admin
-spring:
-  profiles:
-    active: s3
-  config:
-    location: s3://bucket
-cloud:
-  aws:
-    credentials:
-      instanceProfile: false
-      accessKey: AKIAIOSFODNN7EXAMPLE
-      secretKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-    region:
-      static: eu-west-1

@@ -5,6 +5,8 @@ spring:
     location: s3://bucket
 cloud:
   aws:
+    endpoint: http://${DOCKER_IP}:9444/s3
+    bucket: bucket
     credentials:
       instanceProfile: false
       accessKey: AKIAIOSFODNN7EXAMPLE
