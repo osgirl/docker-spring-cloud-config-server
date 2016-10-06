@@ -1,12 +1,11 @@
 spring:
   profiles:
-    active: s3
+    active: resourceBased
   config:
-    location: s3://bucket
+    location: s3://test-bucket
 cloud:
   aws:
-    endpoint: http://${DOCKER_IP}:9444/s3
-    bucket: bucket
+    endpoint: http://127.0.0.1:9444/s3
     credentials:
       instanceProfile: false
       accessKey: AKIAIOSFODNN7EXAMPLE

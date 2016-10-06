@@ -27,7 +27,6 @@ class SpringCloudConfigServerApplicationIT extends Specification {
 
     @Configuration
     public static class AmazonConfig {
-
         @Bean
         public AmazonS3Client amazonS3(@Value('${cloud.aws.endpoint}') String endpoint,
                                        @Value('${cloud.aws.credentials.accessKey}') String accessKey,
@@ -47,7 +46,9 @@ class SpringCloudConfigServerApplicationIT extends Specification {
     @Value('${local.server.port}')
     int port
 
-    @Value('${cloud.aws.bucket}')
+    @Value('${spring.config.location}')
+    String configLocation
+
     String bucket
 
     def setupSpec() {
@@ -55,6 +56,7 @@ class SpringCloudConfigServerApplicationIT extends Specification {
     }
 
     def setup() {
+        bucket = configLocation.drop(5)
         amazonClient.createBucket(bucket)
         new ClassPathResource('config').file.eachFileRecurse (FileType.FILES) { file ->
             amazonClient.putObject(bucket, file.name, file)
@@ -98,8 +100,8 @@ class SpringCloudConfigServerApplicationIT extends Specification {
         result.getPropertySources().size() == 2
         result.getPropertySources().find() { it.getName() == "s3://${bucket}/application.properties" } != null
         result.getPropertySources().find() { it.getName() == "s3://${bucket}/application.properties" }.source.get("application-key").equals("application-value")
-        result.getPropertySources().find() { it.getName() == "s3://${bucket}/unknown.properties" } != null
-        result.getPropertySources().find() { it.getName() == "s3://${bucket}/unknown.properties" }.source.size() == 0
+        result.getPropertySources().find() { it.getName() == "unknown.properties" } != null
+        result.getPropertySources().find() { it.getName() == "unknown.properties" }.source.size() == 0
     }
 
     def "Ensure a context with an empty config file is initialised but with zero properties"() {
