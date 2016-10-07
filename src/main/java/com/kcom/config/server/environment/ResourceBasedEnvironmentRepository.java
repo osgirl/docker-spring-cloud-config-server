@@ -37,7 +37,6 @@ public class ResourceBasedEnvironmentRepository implements EnvironmentRepository
                 .map(String::trim)
                 .collect(toList());
         log.info("\n\n\n\n LOOKING IN THESE LOCATIONS " + configurationLocations);
-
     }
 
     @Override
@@ -46,6 +45,7 @@ public class ResourceBasedEnvironmentRepository implements EnvironmentRepository
         environment.setLabel(label);
         environment.addFirst(createPropertySource("application"));
         environment.add(createPropertySource(application));
+        log.info("\n\n\n\n ENV " + environment);
         return environment;
     }
 
@@ -55,6 +55,8 @@ public class ResourceBasedEnvironmentRepository implements EnvironmentRepository
 
         for(String location : configurationLocations) {
             Resource resource = resourceLoader.getResource(format("%s/%s", location, propertiesFilename));
+            log.info("\n\n\n\n resource " + resource);
+            log.info("\n\n\n\n resource exists " + resource.exists());
             if (resource.exists()) {
                 return new PropertySource(format("%s/%s", location, resource.getFilename()), loadProperties(resource));
             }
