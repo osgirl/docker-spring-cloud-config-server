@@ -16,10 +16,6 @@ Properties can be loaded from Amazon S3 by using the s3 protocol to reference Am
 
 You can also provide multiple search locations to search across different directories or buckets.  Locations take precedence based on the order they were specified i.e `spring.config.location=s3://test-bucket1,s3://test-bucket2,s3://test-bucket3`.  In this example `test-bucket1` would be searched first, followed by `test-bucket2` and then `test-bucket3`.
 
-### Git Backend
-
-To use SSH GIT urls you will need to mount known_hosts config and keys into /root/.ssh/.
-
 ## Usage
 
 To run the docker container:
