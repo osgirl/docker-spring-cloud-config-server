@@ -1,12 +1,6 @@
 package com.kcom.config.server
 
-import com.amazonaws.ClientConfiguration
-import com.amazonaws.Protocol
-import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.internal.StaticCredentialsProvider
 import com.amazonaws.services.s3.AmazonS3
-import com.amazonaws.services.s3.AmazonS3Client
-import com.amazonaws.services.s3.S3ClientOptions
 import groovy.io.FileType
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -14,8 +8,6 @@ import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.boot.test.TestRestTemplate
 import org.springframework.boot.test.WebIntegrationTest
 import org.springframework.cloud.config.environment.Environment
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
 import sirius.kernel.Setup
 import sirius.kernel.Sirius
@@ -25,20 +17,20 @@ import spock.lang.Specification
 @WebIntegrationTest(randomPort=true)
 class SpringCloudConfigServerApplicationIT extends Specification {
 
-    @Configuration
-    public static class AmazonConfig {
-        @Bean
-        public AmazonS3Client amazonS3(@Value('${cloud.aws.endpoint}') String endpoint,
-                                       @Value('${cloud.aws.credentials.accessKey}') String accessKey,
-                                       @Value('${cloud.aws.credentials.secretKey}') String secretKey) {
-            ClientConfiguration clientConfiguration = new ClientConfiguration();
-            clientConfiguration.setProtocol(Protocol.HTTP);
-            AmazonS3Client client = new AmazonS3Client(new StaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)), clientConfiguration);
-            client.setS3ClientOptions(new S3ClientOptions().withPathStyleAccess(true));
-            client.setEndpoint(endpoint);
-            return client;
-        }
-    }
+//    @Configuration
+//    public static class AmazonConfig {
+//        @Bean
+//        public AmazonS3Client amazonS3(@Value('${cloud.aws.endpoint}') String endpoint,
+//                                       @Value('${cloud.aws.credentials.accessKey}') String accessKey,
+//                                       @Value('${cloud.aws.credentials.secretKey}') String secretKey) {
+//            ClientConfiguration clientConfiguration = new ClientConfiguration();
+//            clientConfiguration.setProtocol(Protocol.HTTP);
+//            AmazonS3Client client = new AmazonS3Client(new StaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)), clientConfiguration);
+//            client.setS3ClientOptions(new S3ClientOptions().withPathStyleAccess(true));
+//            client.setEndpoint(endpoint);
+//            return client;
+//        }
+//    }
 
     @Autowired
     AmazonS3 amazonClient
