@@ -1,6 +1,7 @@
 package com.kcom.config.server.environment;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.config.environment.Environment;
@@ -22,6 +23,7 @@ import static java.util.stream.Collectors.toList;
 
 @Profile("resourceBased")
 @Component
+@Slf4j
 public class ResourceBasedEnvironmentRepository implements EnvironmentRepository, SearchPathLocator {
 
     private final ResourceLoader resourceLoader;
@@ -34,6 +36,8 @@ public class ResourceBasedEnvironmentRepository implements EnvironmentRepository
         this.configurationLocations = stream(configurationLocation.split(","))
                 .map(String::trim)
                 .collect(toList());
+        log.info("\n\n\n\n LOOKING IN THESE LOCATIONS " + configurationLocations);
+
     }
 
     @Override
