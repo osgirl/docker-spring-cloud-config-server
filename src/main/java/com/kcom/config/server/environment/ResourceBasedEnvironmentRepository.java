@@ -1,7 +1,6 @@
 package com.kcom.config.server.environment;
 
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.config.environment.Environment;
@@ -23,7 +22,6 @@ import static java.util.stream.Collectors.toList;
 
 @Profile("resourceBased")
 @Component
-@Slf4j
 public class ResourceBasedEnvironmentRepository implements EnvironmentRepository, SearchPathLocator {
 
     private final ResourceLoader resourceLoader;
@@ -36,7 +34,6 @@ public class ResourceBasedEnvironmentRepository implements EnvironmentRepository
         this.configurationLocations = stream(configurationLocation.split(","))
                 .map(String::trim)
                 .collect(toList());
-        log.info("\n\n\n\n LOOKING IN THESE LOCATIONS " + configurationLocations);
     }
 
     @Override
@@ -45,7 +42,6 @@ public class ResourceBasedEnvironmentRepository implements EnvironmentRepository
         environment.setLabel(label);
         environment.addFirst(createPropertySource("application"));
         environment.add(createPropertySource(application));
-        log.info("\n\n\n\n ENV " + environment);
         return environment;
     }
 
@@ -55,8 +51,6 @@ public class ResourceBasedEnvironmentRepository implements EnvironmentRepository
 
         for(String location : configurationLocations) {
             Resource resource = resourceLoader.getResource(format("%s/%s", location, propertiesFilename));
-            log.info("\n\n\n\n resource " + resource);
-            log.info("\n\n\n\n resource exists " + resource.exists());
             if (resource.exists()) {
                 return new PropertySource(format("%s/%s", location, resource.getFilename()), loadProperties(resource));
             }
@@ -76,5 +70,4 @@ public class ResourceBasedEnvironmentRepository implements EnvironmentRepository
     public Locations getLocations(String application, String profile, String label) {
         return new Locations(application, profile, label, null, configurationLocations.toArray(new String[0]));
     }
-
 }
