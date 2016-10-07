@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: resourceBased
+  config:
+    location: s3://test-bucket
+cloud:
+  aws:
+    endpoint: http://127.0.0.1:9444/s3
+    credentials:
+      instanceProfile: false
+      accessKey: AKIAIOSFODNN7EXAMPLE
+      secretKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    region:
+      static: eu-west-1
